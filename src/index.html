@@ -1,0 +1,54 @@
+<html>
+
+  <head>
+    <title> Ssehc </title>
+
+    <link rel="shortcut icon" href="#">
+
+    <style>
+
+     html, body {
+         margin: 0;
+         padding: 0;
+         background: black;
+         color: #fcfcfc;
+     }
+
+     section {
+         background: #202020;
+     }
+
+     .board {
+         position: relative;
+         margin-left: 1em;
+         width: 60vmin;
+         height: 0;
+         padding-bottom: 60vmin;
+     }
+     
+    </style>
+
+  </head>
+
+  <body>
+
+    <section>
+      <div class='board', id="app"></div>
+      <div class='board', id="app2"></div>
+    </section>
+    <script>
+
+     window.addEventListener('DOMContentLoaded', () => {
+       Ssehc.default(document.getElementById('app'), {
+         lastMove: 'e2e4',
+         fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+       });
+       Ssehc.default(document.getElementById('app2'), {
+         fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+       });
+     });
+     
+    </script>
+
+  </body>
+</html>
