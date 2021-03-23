@@ -2,22 +2,53 @@ import { nt } from 'nefs';
 
 export type FUse<A> = (_: A) => void
 
+export type Mem<A> = {
+  (): A,
+  clear: () => void
+}
+
+export function mem<A>(f: () => A): Mem<A> {
+  let val: A | undefined = undefined;
+
+  let res: any = (): A => {
+    if (!val) {
+      val = f();
+    }
+    return val;
+  };
+
+  res.clear = () => {
+    val = undefined;
+  };
+  return res;
+}
+
 export class Sub<A> {
-  private fn: () => A
+  val: A
   private subs: FUse<A>[]
 
-  constructor(fn: () => A) {
+  constructor(val: A) {
+    this.val = val;
     this.subs = [];
-    this.fn = fn;
+  }
+
+  apply(fn: (_: A) => void) {
+    fn(this.val);
   }
 
   sub(fn: FUse<A>) {
     this.subs.push(fn);
   }
 
-  trigger() {
-    let val = this.fn();
-    this.subs.forEach(_ => _(val));
+  isub(fn: FUse<A>) {
+    this.subs.push(fn);
+    fn(this.val);
+  }
+
+  trigger(val?: A) {
+    this.val = val || this.val;
+
+    this.subs.forEach(_ => _(this.val));
   }
 }
 

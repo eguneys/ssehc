@@ -35,17 +35,35 @@
     <section>
       <div class='board', id="app"></div>
       <div class='board', id="app2"></div>
+      No fen
+      <div class='board', id="app3"></div>
     </section>
     <script>
 
      window.addEventListener('DOMContentLoaded', () => {
-       Ssehc.default(document.getElementById('app'), {
+       let api = Ssehc.default(document.getElementById('app'), {
          lastMove: 'e2e4',
          fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
        });
+
+       api.fen('rnbqkbnr/pppppppp/8/8/8/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1');
        Ssehc.default(document.getElementById('app2'), {
          fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
        });
+
+       Ssehc.default(document.getElementById('app3'), {});
+
+       let $d4 = document.createElement('div');
+       $d4.classList.add('board');
+       let d4api = Ssehc.default($d4, {
+         fen: 'p7/8/8/p7/8/8/8/8 w KQkq - 0 1'
+       });
+       document.body.appendChild($d4);
+       setTimeout(() => {
+         d4api.fen('8/8/8/p7/8/8/8/8 w KQkq - 0 1');
+         d4api.fen('p7/8/8/p7/8/8/8/8 w KQkq - 0 1');
+}, 1000);
+       
      });
      
     </script>
