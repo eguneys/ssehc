@@ -22,8 +22,8 @@ export default function(ctrl: Ctrl) {
     }, [], parentProps), { fPosToTranslate });
 
   
-  let v$LastMoves = vmap([], (pos: nt.Pos, parentProps) =>
-    vh('square.last-move', { pos },
+  let v$LastMoves = vmap([] as Array<any>, (props, parentProps) =>
+    vh('square.last-move', props,
        { element: ({ pos, fPosToTranslate }) =>
          styleTransform(fPosToTranslate(pos))
        }, [], parentProps), { fPosToTranslate });
@@ -55,7 +55,7 @@ export default function(ctrl: Ctrl) {
   });
 
   ctrl.sLastMove.sub((lastMove: Array<nt.Pos>) => {
-    v$LastMoves.update(lastMove);
+    v$LastMoves.update(lastMove.map(pos => ({pos})));
   });
 
   const onResize = (bounds: ClientRect) => {

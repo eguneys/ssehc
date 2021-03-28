@@ -12,4 +12,8 @@ export default class Api {
   fen(fen: string) {
     this.ctrl.fen(fen);
   }
+
+  lastMove(lastMove: string) {
+    this.ctrl.lastMove(lastMove);
+  }
 }

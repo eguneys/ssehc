@@ -2,6 +2,16 @@ import { Sub } from './util';
 import { Config } from './config';
 import { nt, f, db, p } from 'nefs';
 
+export function parseUci(uci: string) {
+  if (uci.length === 4) {
+    let p1 = p.mPosKey(uci.substring(0, 2)),
+    p2 = p.mPosKey(uci.substring(2, 4));
+    if (p1 && p2) {
+      return [p1, p2].map(_ => p.pByKey(_));
+    }
+  }
+}
+
 export default class Ctrl {
 
   sSituation: Sub<nt.Situation>
@@ -28,6 +38,14 @@ export default class Ctrl {
     let s = f.situation(fen);
     if (s) {
       this.sSituation.trigger(s);
+    }
+  }
+
+  lastMove(lastMove: string) {
+    let _lastMove = parseUci(lastMove);
+
+    if (_lastMove) {
+      this.sLastMove.trigger(_lastMove);
     }
   }
 
